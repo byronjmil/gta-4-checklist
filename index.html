@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>100% Completion in Grand Theft Auto IV</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vuetify@3.8.3/dist/vuetify.min.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@3.8.3/dist/vuetify.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <v-app>
+            <v-main>
+                <v-container>
+                    <div>
+                        <div class="text-h5">One Off Events</div>
+                        <div v-for="event in checklist['One Off Events']">
+                            {{event.name}}
+                            <input type="checkbox" v-model="event.completed">
+                        </div>
+                    </div>
+                    <v-divider></v-divider>
+                    <div>
+                        <div class="text-h5">Friend Activities</div>
+                        <div v-for="friend in checklist['Friend Activities']" class="py-3">
+                            <span class="text-h6">{{friend.name}}</span>
+                            <div v-for="activity in friend.activities">
+                                {{activity.name}}
+                                <input type="checkbox" v-model="activity.completed" />
+                            </div>
+                        </div>
+                    </div>
+                    <v-divider></v-divider>
+                    <div>
+                        <div class="text-h5">Side Missions</div>
+                        <div v-for="mission in checklist['Side Missions']" class="py-3">
+                            {{mission.name}}
+                            <v-btn @click="mission.completed++">
+                                Count is: {{ mission.completed }}
+                            </v-btn>
+                        </div>
+                    </div>
+                    <v-divider></v-divider>
+                    <div>
+                        <div class="text-h5">Random Encounters</div>
+                        <div v-for="stranger in checklist.strangers">
+                            {{stranger.name}}
+                            <input v-for="(item, index) in stranger.completed" :key="index" type="checkbox"
+                                v-model="stranger.completed[index]">
+                        </div>
+                    </div>
+                    <v-divider></v-divider>
+                    <div>
+                        <div class="text-h5">Third Island Collectibles</div>
+                        <div v-for="collectible in checklist.Collectibles" class="py-3">
+                            {{collectible.name}}
+                            <v-btn @click="collectible.completed++">
+                                Count is: {{ collectible.completed }}
+                            </v-btn>
+                        </div>
+                    </div>
+                    <v-divider></v-divider>
+                    {{JSON.stringify(checklist)}}
+                </v-container>
+            </v-main>
+        </v-app>
+    </div>
+
+    <script>
+        const { createApp, ref, reactive } = Vue;
+        const { createVuetify } = Vuetify;
+
+        const vuetify = createVuetify();
+
+        createApp({
+            setup() {
+                const checklist = reactive({
+                    "strangers": [
+                        {
+                            "name": "Brian Meech",
+                            "completed": [
+                                true,
+                                false,
+                                false
+                            ]
+                        },
+                        {
+                            "name": "Real Badman",
+                            "completed": [
+                                false
+                            ]
+                        },
+                        {
+                            "name": "Mel",
+                            "completed": [
+                                false
+                            ]
+                        },
+                        {
+                            "name": "Hossan Ramzy",
+                            "completed": [
+                                false
+                            ]
+                        },
+                        {
+                            "name": "Ilyena Faustin",
+                            "completed": [
+                                false
+                            ]
+                        },
+                        {
+                            "name": "Pathos",
+                            "completed": [
+                                false,
+                                false
+                            ]
+                        },
+                        {
+                            "name": "Sara",
+                            "completed": [
+                                false,
+                                false
+                            ]
+                        },
+                        {
+                            "name": "Jeff Harlingford",
+                            "encounters": [
+                                false,
+                                false,
+                                false
+                            ]
+                        },
+                        {
+                            "name": "Eddie Low",
+                            "completed": [
+                                false,
+                                false
+                            ]
+                        },
+                        {
+                            "name": "Marnie Allen",
+                            "completed": [
+                                false,
+                                false
+                            ]
+                        },
+                        {
+                            "name": "Gracie Ancelotti",
+                            "completed": [
+                                false
+                            ]
+                        }
+                    ],
+                    "One Off Events": [
+                        {
+                            "name": "Beat a computer or friend at Pool.",
+                            "completed": false
+                        },
+                        {
+                            "name": "Beat a computer or friend at Darts.",
+                            "completed": false
+                        },
+                        {
+                            "name": "Beat a computer or friend in a full game of Bowling.",
+                            "completed": false
+                        },
+                        {
+                            "name": "Beat the high score in the QUB3D arcade game.",
+                            "completed": true
+                        }
+                    ],
+                    "Side Missions": [
+                        {
+                            "name": "Complete all 10 drug deliveries for Little Jacob.",
+                            "completed": 0
+                        },
+                        {
+                            "name": "Win all 9 races for Brucie Kibbutz at least once.",
+                            "completed": 0
+                        },
+                        {
+                            "name": "Complete all 10 Exotic Exports for Brucie.",
+                            "completed": 0
+                        },
+                        {
+                            "name": "Complete all 9 missions of The Fixer's Assassinations.",
+                            "completed": 0
+                        },
+                        {
+                            "name": "Complete all 30 car thefts for Stevie.",
+                            "completed": 0
+                        }
+                    ],
+                    "Collectibles": [
+                        {
+                            "name": "Complete all 30 Most Wanted missions via police computer.",
+                            "completed": 0
+                        },
+                        {
+                            "name": "Complete all 20 vigilante missions via police computer using the \"View Current Crimes\" option.",
+                            "completed": 0
+                        },
+                        {
+                            "name": "Kill all 200 Pigeons.",
+                            "completed": 0
+                        },
+                        {
+                            "name": "Complete all 50 stunt jumps.",
+                            "completed": 0
+                        }
+                    ],
+                    "Friend Activities": [
+                        {
+                            "name": "Brucie Kibbutz",
+                            "activities": [
+                                {
+                                    "name": "Eating",
+                                    "completed": false
+                                },
+                                {
+                                    "name": "Drinking",
+                                    "completed": false
+                                },
+                                {
+                                    "name": "Bowling",
+                                    "completed": false
+                                },
+                                {
+                                    "name": "Strip Club",
+                                    "completed": false
+                                },
+                                {
+                                    "name": "Shows",
+                                    "completed": false
+                                },
+                                {
+                                    "name": "Heli Ride",
+                                    "completed": false
+                                },
+                                {
+                                    "name": "Boating",
+                                    "completed": false
+                                },
+                                {
+                                    "name": "Calls for lift ",
+                                    "completed": false
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Little Jacob",
+                            "activities": [
+                                {
+                                    "name": "Eating",
+                                    "completed": false
+                                },
+                                {
+                                    "name": "Drinking",
+                                    "completed": false
+                                },
+                                {
+                                    "name": "Pool",
+                                    "completed": false
+                                },
+                                {
+                                    "name": "Darts",
+                                    "completed": false
+                                },
+                                {
+                                    "name": "Strip Club",
+                                    "completed": false
+                                },
+                                {
+                                    "name": "Shows",
+                                    "completed": false
+                                },
+                                {
+                                    "name": "Calls for lift",
+                                    "completed": false
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Patrick McReary",
+                            "activities": [
+                                {
+                                    "name": "Drinking",
+                                    "completed": false
+                                },
+                                {
+                                    "name": "Bowling",
+                                    "completed": false
+                                },
+                                {
+                                    "name": "Pool",
+                                    "completed": false
+                                },
+                                {
+                                    "name": "Darts",
+                                    "completed": false
+                                },
+                                {
+                                    "name": "Strip Club",
+                                    "completed": false
+                                },
+                                {
+                                    "name": "Shows",
+                                    "completed": false
+                                },
+                                {
+                                    "name": "Calls for lift ",
+                                    "completed": false
+                                }
+                            ]
+                        }
+                    ]
+                });
+                return {
+                    checklist
+                }
+            }
+        }).use(vuetify).mount('#app');
+
+    </script>
+</body>
+
+</html>
+
+<!-- 
+    Complete the main story missions ("The Cousins Bellic" to "Out of Commission" (Revenge) or "A Revenger's Tragedy" (Deal)).
+    Complete all 10 drug deliveries for Little Jacob.
+    Win all 9 races for Brucie Kibbutz at least once.
+    Complete all 10 Exotic Exports for Brucie.
+    Complete all 9 missions of The Fixer's Assassinations.
+    Complete all 30 car thefts for Stevie.
+    Brucie Kibbutz - Unlock special ability.
+    Little Jacob - Unlock special ability.
+    Patrick McReary - Unlock special ability.
+    Brucie Kibbutz - Do each available activity once.
+    Little Jacob - Do each available activity once.
+    Patrick McReary - Do each available activity once.
+    Beat a computer or friend at Pool.
+    Beat a computer or friend at Darts.
+    Beat a computer or friend in a full game of Bowling.
+    Beat the high score in the QUB3D arcade game.
+    Complete 10 of the random character missions (excluding Jeff Harlingford, Ivan Bytchkov, Clarence Little, and Cherise Glover).
+    Complete all 30 Most Wanted missions via police computer.
+    Complete all 20 vigilante missions via police computer using the "View Current Crimes" option.
+    Kill all 200 Pigeons.
+    Complete all 50 stunt jumps.
+-->
